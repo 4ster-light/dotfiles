@@ -9,7 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
+    ghostty = {
+      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+      inputs.nixos-unstable.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ghostty, ... }:
