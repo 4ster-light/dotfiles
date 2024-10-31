@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -33,6 +34,15 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.aster = import ./home.nix;
+            }
+          ];
+        };
+        mySystem = nixpkgs.lib.nixosSystem {
+          modules = [
+            {
+              environment.systemPackages = [
+                ghostty.packages.${system}.default
+              ];
             }
           ];
         };

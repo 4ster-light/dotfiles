@@ -69,12 +69,6 @@ in
     python3
     python3Packages.pip
     virtualenv
-    # == Haskell ==
-    # haskellPackages.ghc
-    # haskellPackages.cabal-install
-    # haskellPackages.haskell-language-server
-    # haskellPackages.hlint
-    # haskellPackages.ghcid
     # == JS/TS ==
     nodejs
     bun
