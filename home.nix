@@ -50,13 +50,13 @@ in
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    neofetch
+    nixpkgs-fmt
     # == General ==
+    neofetch
     vscode
     kitty
     brave
     helix
-    nixpkgs-fmt
     # == Golang ==
     go
     gopls
@@ -70,7 +70,6 @@ in
     python3Packages.pip
     virtualenv
     # == JS/TS ==
-    nodejs
     bun
   ];
 
