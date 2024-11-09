@@ -3,13 +3,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Enable flakes and nix-command
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # System bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -18,7 +13,6 @@
 
   time.timeZone = "Europe/Madrid";
 
-  # System-wide localization
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_ES.UTF-8";
@@ -34,24 +28,16 @@
 
   console.keyMap = "es";
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Font configuration
   fonts.packages = with pkgs; [
     jetbrains-mono
-    (nerdfonts.override {
-      fonts = [ "JetBrainsMono" ];
-    })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  # Display server and desktop environment
   services.xserver = {
     enable = true;
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
+    displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
     videoDrivers = [ "modesetting" ];
     xkb = {
@@ -64,16 +50,13 @@
     enable = true;
     user = "aster";
   };
+
   services.libinput.enable = true;
 
-  # Graphics drivers support
   hardware.graphics.enable = true;
 
-  # Printing support
   services.printing.enable = true;
 
-  # Audio configuration
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -82,7 +65,6 @@
     pulse.enable = true;
   };
 
-  # User account configuration
   users.users.aster = {
     isNormalUser = true;
     shell = pkgs.fish;
@@ -90,7 +72,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # System-wide packages
   environment.systemPackages = with pkgs; [
     vim
     wget
@@ -100,7 +81,6 @@
 
   programs.fish.enable = true;
 
-  # Network and security tools
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;

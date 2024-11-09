@@ -6,6 +6,7 @@ let
 
     [editor]
     line-number = "relative"
+    bufferline = "always"
 
     [editor.cursor-shape]
     insert = "bar"
@@ -22,7 +23,7 @@ let
     separator = "│"
     mode.normal = "NORMAL"
     mode.insert = "INSERT"
-    mode.select = "SELECT"
+    mode.select = "VISUAL"
 
     [editor.indent-guides]
     render = true
@@ -31,9 +32,7 @@ let
 
     [keys.normal]
     C-s = ":w" # Maps Ctrl-s to write
-    C-q = ":wq" # Maps Ctrl-q to write-quit
-    C-o = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
-    C-r = ":config-reload" # Maps Ctrl-r to reloading the configuration
+    C-q = ":x" # Maps Ctrl-q to write-quit
   '';
 
   kittyConfig = ''
@@ -51,37 +50,50 @@ in
 
   home.packages = with pkgs; [
     nixpkgs-fmt
-    # == General ==
-    neofetch
+    fastfetch
     vscode
     kitty
     brave
+    discord
     helix
-    # == Golang ==
+    odin
+    gnumake
     go
     gopls
-    # == Lua ==
     lua
     luaPackages.luarocks
-    # == Rust ==
     rustup
-    # == Python ==
+    gcc
     python3
     python3Packages.pip
     virtualenv
-    # == JS/TS ==
     bun
+
+    ghc
+    cabal-install
+    stack
+    hlint
+    ghcid
+
+    # LSPs for Helix-supported languages
+    lua-language-server # Lua LSP
+    python3Packages.python-lsp-server # Python LSP
+    nodePackages.typescript-language-server # TypeScript/JavaScript LSP
+    vscode-langservers-extracted # HTML, CSS, JSON LSPs
+    haskell-language-server # Haskell LSP
+    templ # Templ LSP
+    svelte-language-server # Svelte LSP
+    lldb # Debugger for use with DAP
+    golangci-lint # Linter for Go
   ];
 
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
       set -U fish_greeting ""
-
       if not test -d ~/.local/share/omf
         curl -L https://get.oh-my.fish | fish
       end
-
       if not omf theme | grep -q 'lambda'
         omf install lambda
         omf theme lambda
@@ -89,20 +101,17 @@ in
     '';
   };
 
-  # Git configuration
   programs.git = {
     enable = true;
     userName = "4ster-light";
     userEmail = "davidvivarbogonez@gmail.com";
   };
 
-  # Kitty configuration
   xdg.configFile."kitty/kitty.conf" = {
     text = kittyConfig;
     force = true;
   };
 
-  # Helix configuration
   xdg.configFile."helix/config.toml" = {
     text = helixConfig;
     force = true;
