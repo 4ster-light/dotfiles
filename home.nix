@@ -30,6 +30,9 @@ let
     character = "┆"
     skip-levels = 1
 
+    [editor.soft-wrap]
+    enable = true
+
     [keys.normal]
     C-s = ":w" # Maps Ctrl-s to write
     C-q = ":x" # Maps Ctrl-q to write-quit
@@ -92,17 +95,31 @@ in
     brave
     discord
     helix
+    bat
+    libreoffice-qt
+    
     odin
+
+    ocaml
+    ocamlPackages.dune_3
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.merlin
+    ocamlPackages.ocamlformat
+    opam
+    
     gnumake
+    
     go
     gopls
+    
     lua
     luaPackages.luarocks
+    
     rustup
     gcc
+
     python3
-    python3Packages.pip
-    virtualenv
+    uv
     bun
 
     ghc
@@ -110,6 +127,9 @@ in
     stack
     hlint
     ghcid
+    
+    docker
+    docker-compose
 
     # LSPs for Helix-supported languages
     lua-language-server # Lua LSP
@@ -122,6 +142,8 @@ in
     lldb # Debugger for use with DAP
     golangci-lint # Linter for Go
   ];
+
+  # home.extraGroups = [ "docker" ];
 
   programs.fish = {
     enable = true;

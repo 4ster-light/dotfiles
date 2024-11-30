@@ -31,6 +31,8 @@
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [
+    fira
+    corefonts
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
@@ -69,8 +71,10 @@
     isNormalUser = true;
     shell = pkgs.fish;
     description = "4ster-light";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
+
+  users.groups.docker = {};
 
   environment.systemPackages = with pkgs; [
     vim
@@ -80,6 +84,8 @@
   ];
 
   programs.fish.enable = true;
+
+  virtualisation.docker.enable = true;
 
   programs.mtr.enable = true;
   programs.gnupg.agent = {
